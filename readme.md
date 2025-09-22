@@ -1,5 +1,7 @@
 # Django Seminar
 
+https://github.com/quatzcotl/django-seminar
+
 ## Tag 1 
 - Einführung
 - Models, Querysets, Adminoberfläche
@@ -10,13 +12,20 @@ Erstelle dazu ein neues virtuelles Environment, installiere Django
 App erstellen, Models erstellen, Migrationen, Adminoberfläche
 Thema Eurer Wahl, zb. Company-Employees (1:N)
 
+django-admin startproject XXXX
+cd XXXX
+python manage.py startapp YYYY
+
+
 
 
 ## INSTALLATION
 
 ### Environment erstellen und aktivieren
-python -m venv .venv
-.venv\Scripts\activate
+```
+    python -m venv .venv
+    .venv\Scripts\activate
+```
 
 ### Django installieren
 
