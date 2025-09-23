@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "user",
 ]
 
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -51,6 +52,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# wenn wir im DEBUG Modus sind (DEBUG=True), dann soll die DEBUG-Middleware
+# anzeigt (in den Projekturls die Links hinzufügen)
+if DEBUG:
+    INSTALLED_APPS.extend(["debug_toolbar"])
+    MIDDLEWARE.extend(["debug_toolbar.middleware.DebugToolbarMiddleware"])
+    INTERNAL_IPS = ("127.0.0.1",)
+
 AUTH_USER_MODEL = "user.User"
 
 ROOT_URLCONF = "event_manager.urls"
@@ -58,8 +66,8 @@ ROOT_URLCONF = "event_manager.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
+        "DIRS": [BASE_DIR / "event_manager/templates"],
+        "APP_DIRS": True,  # sucht in den Apps zb. events, nach templates/
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",

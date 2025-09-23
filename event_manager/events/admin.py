@@ -9,7 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "category", "is_active"]
+    list_display = ["id", "name", "author", "date", "category", "is_active"]
 
     # diese Attribute sind anklickbar
     list_display_links = ["id", "name"]

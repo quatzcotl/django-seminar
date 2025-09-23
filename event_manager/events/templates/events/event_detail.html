@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{object}}
+{% endblock %}
+
+
+{% block head %}
+<h1>{{object}}</h1>
+{% endblock %}
+
+{% block content %}
+    <p>
+        <a href="{% url 'events:events' %}">zurück zur Übersicht</a>
+    </p>
+    <p>{{object.sub_title|default:"kein Subtitlte vorhanden"}}</p>
+    <p>MinGroup: {{object.min_group}}</p>
+    <p>Autor: {{object.author}}</p>
+{% endblock %}
+

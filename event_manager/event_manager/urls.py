@@ -1,5 +1,6 @@
 """
-PROJEKT URLS 
+event_manager/event_manager/urls.py
+PROJEKT URLS
 
 URL configuration for event_manager project.
 
@@ -16,10 +17,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('events/', include('events.urls')),
-]
+    path("admin/", admin.site.urls),
+    path("events/", include("events.urls")),
+] + debug_toolbar_urls()

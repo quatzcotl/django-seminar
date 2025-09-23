@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Kategorie: {{category}}
+{% endblock %}
+
+
+{% block head %}
+<h1>{{category}}</h1>
+{% endblock %}
+
+{% block content %}
+    <p>
+        <a href="{% url 'events:categories' %}">zurück zur Übersicht</a>
+    </p>
+    <p>{{category.sub_title|default:"kein Subtitlte vorhanden"}}</p>
+    <p>{{category.description|default:"keine Description vorhanden"|linebreaks}}</p>
+{% endblock %}
+
