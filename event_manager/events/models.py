@@ -1,6 +1,10 @@
 from django.db import models
+from django.db.models import Q
+from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
 
+from .validators import datetime_in_future
 
 User = get_user_model()
 
@@ -33,11 +37,24 @@ class Event(models.Model):
         SMALL = 2, "kleine Gruppe"
         UNLIMITED = 0, "unbegrenzt"
 
-    name = models.CharField(max_length=20, unique=True)
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=Q(min_group__lte=10), name="min_group_less_10"
+            ),
+        ]
+
+    name = models.CharField(
+        max_length=20,
+        unique=True,
+        validators=[
+            MinLengthValidator(3, message="Muss min. 3 Zeichen sein."),
+        ],
+    )
     sub_title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(validators=[datetime_in_future])
     min_group = models.PositiveIntegerField(
         choices=Group.choices, default=Group.UNLIMITED
     )
@@ -51,6 +68,10 @@ class Event(models.Model):
         on_delete=models.CASCADE,  # alternativ PROTECT, SET_NULL, SET_DEFAULT
         related_name="events",  # sport.events.all()
     )
+
+    def get_absolute_url(self) -> str:
+        # best practice diese Methode einzubauen
+        return reverse("events:event-detail", kwargs={"pk": self.pk})  # events/3
 
     def __str__(self) -> str:
         return self.name

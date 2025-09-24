@@ -10,8 +10,10 @@
 {% endblock %}
 
 {% block content %}
+
     <p>
-        <a href="{% url 'events:events' %}">zurück zur Übersicht</a>
+        <a href="{% url 'events:events' %}">zurück zur Übersicht</a> | 
+        <a href="{% url 'events:event-update' object.pk %}">Event editieren</a>
     </p>
     <p>{{object.sub_title|default:"kein Subtitlte vorhanden"}}</p>
     <p>MinGroup: {{object.min_group}}</p>

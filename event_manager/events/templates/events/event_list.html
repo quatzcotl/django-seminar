@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block content %}
-
+    <a href="{% url 'events:event-create' %}">Neuen Event anlegen</a>
+    <br>
     <ul>
         {% for event in object_list %}
             <li>

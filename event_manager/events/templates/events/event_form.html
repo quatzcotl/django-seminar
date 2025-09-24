@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+
+{% if object %}
+    Event editieren: {{object}}
+{% else %}
+    Neuen Event eintragen
+{% endif %}
+
+{% endblock %}
+
+
+{% block head %}
+
+{% if object %}
+    <h1>Event editieren</h1>
+{% else %}
+    <h1>Neuen Event eintragen</h1>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+        <form method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+
+        <div>
+            <input class="btn btn-primary" type="submit" value="Jetzt eintragen" />
+        </div>
+
+    </div>
+</div>
+</div>
+</form>
+{% endblock %}
