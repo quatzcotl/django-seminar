@@ -56,7 +56,7 @@ class Event(models.Model):
     is_active = models.BooleanField(default=True)
     date = models.DateTimeField(validators=[datetime_in_future])
     min_group = models.PositiveIntegerField(
-        choices=Group.choices, default=Group.UNLIMITED
+        choices=Group.choices, default=Group.UNLIMITED, blank=True
     )
     author = models.ForeignKey(
         User,

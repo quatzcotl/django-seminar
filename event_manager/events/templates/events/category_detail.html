@@ -18,3 +18,20 @@ Kategorie: {{category}}
     <p>{{category.description|default:"keine Description vorhanden"|linebreaks}}</p>
 {% endblock %}
 
+
+
+{% block title %}
+Detailseite Auto                         
+{% endblock %}
+
+{% block head %}
+<h1>Detailseite Auto</h1>
+{% endblock %}
+
+
+{% block content %}
+<p>Auto: {{object}}</p>
+<p>Hersteller: {{object.hersteller}}</p>
+<p>Modell: {{object.modell}}</p>
+<p>Baureihe: {{object.baureihe}}</p>
+{% endblock %}

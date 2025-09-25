@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{object}}
+{% endblock %}
+
+
+{% block head %}
+<h1>Event wirklich löschen?</h1>
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'events:events' %}">zurück zur Übersicht</a><br>
+
+    <form method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-primary" value="Jetzt Event löschen" />
+    </form>
+    
+{% endblock %}
+

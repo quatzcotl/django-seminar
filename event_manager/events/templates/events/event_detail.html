@@ -7,16 +7,30 @@
 
 {% block head %}
 <h1>{{object}}</h1>
+<p>{{object.sub_title|default:"kein Subtitlte vorhanden"}}</p>
 {% endblock %}
 
 {% block content %}
-
     <p>
         <a href="{% url 'events:events' %}">zurück zur Übersicht</a> | 
-        <a href="{% url 'events:event-update' object.pk %}">Event editieren</a>
+
+        {% if user.is_authenticated and user == object.author %}
+            <a href="{% url 'events:event-update' object.pk %}">Event editieren</a> |
+            <a href="{% url 'events:event-delete' object.pk %}">Event löschen</a>
+        {% endif %}
+        
     </p>
-    <p>{{object.sub_title|default:"kein Subtitlte vorhanden"}}</p>
-    <p>MinGroup: {{object.min_group}}</p>
-    <p>Autor: {{object.author}}</p>
+
+    <h3>Beschreibung</h3>
+    <p>{{object.description}}</p>
+
+    <section class="mb-5 mt-5">
+    <h3>zusätzliche Infos</h3>
+    <ul>
+    <li>eingestellt von: {{object.author}}</li>
+    <li><b>findet statt am (deutsche Zeit): {{object.date}}</b></li>
+    <li>Min Gruppengröße: {{object.get_min_group_display}}</li>
+    </ul>
+    </section>
 {% endblock %}
 

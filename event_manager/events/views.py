@@ -1,7 +1,9 @@
 import logging
 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, HttpRequest, Http404
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -17,7 +19,30 @@ from .forms import CategoryForm, EventForm
 logger = logging.getLogger(__name__)  # erstellt Logger Instanz
 
 
-class EventUpdateView(SuccessMessageMixin, UpdateView):
+class UserisAuthor(UserPassesTestMixin):
+    """Ein Mixin, um zu prüfen, ob der aktuell angemeldete User
+    der Autor des Events ist."""
+
+    def test_func(self) -> bool:
+        return self.request.user == self.get_object().author
+
+
+class EventDeleteView(UserisAuthor, SuccessMessageMixin, DeleteView):
+    """
+    View zum Löschen eines Events
+    http://127.0.0.1:8000/events/3/delete
+
+    generisches Template: event_confirm_delete.html
+    """
+
+    model = Event
+    success_message = "Das Event wurde erfolgreich gelöscht"
+    # template_name = "my_event_confirm_delete.html" # Falls Name abweicht vom generischen Namen
+    # immer in klassenbasierten Views reverse_lazy nutzen!
+    success_url = reverse_lazy("events:events")
+
+
+class EventUpdateView(UserisAuthor, SuccessMessageMixin, UpdateView):
     """
     View zum Update eines Events
     http://127.0.0.1:8000/events/3/update
@@ -28,7 +53,7 @@ class EventUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Das Event wurde erfolgreich aktualisiert"
 
 
-class EventCreateView(SuccessMessageMixin, CreateView):
+class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """
     View zum Anlegen eines Events
     http://127.0.0.1:8000/events/create

@@ -15,6 +15,7 @@ urlpatterns = [
     path("<int:pk>", views.EventDetailView.as_view(), name="event-detail"),
     # http://127.0.0.1:8000/events/3/update
     path("<int:pk>/update", views.EventUpdateView.as_view(), name="event-update"),
+    path("<int:pk>/delete", views.EventDeleteView.as_view(), name="event-delete"),
     # http://127.0.0.1:8000/events/create
     path("create", views.EventCreateView.as_view(), name="event-create"),
     #

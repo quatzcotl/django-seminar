@@ -12,21 +12,26 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+env.read_env(BASE_DIR / ".env")  # Einlesen der .env-Datei
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-v+8c*yvsn3z_$ic%f1j7&b7ycudykqe2&7o861w+uqbmc6^y!!"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["example.com", "localhost", "127.0.0.1"]
+# macht aus einer komma-separierten Liste einen String-Array
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 MESSAGE_TAGS = {
@@ -40,6 +45,7 @@ MESSAGE_TAGS = {
 # Application definition
 
 INSTALLED_APPS = [
+    "user",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -47,7 +53,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "events",
-    "user",
     "crispy_forms",
     "crispy_bootstrap5",
 ]
@@ -74,6 +79,9 @@ if DEBUG:
     INTERNAL_IPS = ("127.0.0.1",)
 
 AUTH_USER_MODEL = "user.User"
+# nach erfolgreichem Einloggen oder Ausloggen soll weitergeleitet werden auf:
+LOGIN_REDIRECT_URL = "/events"
+LOGOUT_REDIRECT_URL = "/events"
 
 ROOT_URLCONF = "event_manager.urls"
 
