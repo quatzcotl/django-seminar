@@ -51,10 +51,15 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  # whitenoise auch in Development nutzen
     "django.contrib.staticfiles",
     "events",
+    "pages",
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_extensions",
+    "rest_framework",  # web apis erstellen
+    "rest_framework.authtoken",  # für die Authentizierung via Token
 ]
 
 # Crispy Forms
@@ -63,6 +68,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # für statische Dateien
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -151,6 +157,19 @@ STATIC_URL = "static/"  # Teil in der ULR, zb. static/css/...
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # unser statisches Verzeichnis
 ]
+# hier liegen alle statischen Dateien gesammelt von allen apps und allen Orten
+# python manage.py collectstatic
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+}
 
 
 # Default primary key field type

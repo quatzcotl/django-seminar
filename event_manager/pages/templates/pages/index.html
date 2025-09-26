@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block head %}
+<h1>Welcome friend!</h1>
+{% endblock %}
+
+{% block content %}
+<ul>
+{% for event in events %}
+    <li>{{event}}</li>
+{% endfor %}
+</ul>
+
+<h2>Datenpunkte</h2>
+<ul>
+{% for point in data %}
+    <li>{{point}}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
