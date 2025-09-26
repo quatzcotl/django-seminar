@@ -1,0 +1,9 @@
+### den API Token für den User holen
+### 99e5835bbf689134bd04027167250c3e02bd8d40
+POST http://127.0.0.1:8000/api/token
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "abcd1234"
+}

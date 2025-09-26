@@ -1,0 +1,10 @@
+Django==5.2.6
+djangorestframework
+django-crispy-forms
+django-debug-toolbar
+crispy-bootstrap5
+factory_boy
+django-environ
+whitenoise
+uvicorn
+django-extensions

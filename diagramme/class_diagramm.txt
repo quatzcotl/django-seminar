@@ -1,0 +1,21 @@
+classDiagram
+    class Category {
+        +int id
+        +string name
+    }
+
+    class Tag {
+        +int id
+        +string name
+    }
+
+    class Event {
+        +int id
+        +string name
+        +datetime date
+        +User author
+        +Category category
+    }
+
+    Category "1" --> "0..*" Event 
+    Event "0..*" --> "0..*" Tag

@@ -1,0 +1,12 @@
+### neuen Event anlegen
+POST http://127.0.0.1:8000/api/events
+Content-Type: application/json
+Authorization: Token 99e5835bbf689134bd04027167250c3e02bd8d40
+
+{
+    "name": "api Test Event neu",
+    "date": "2025-10-15T18:30:00",
+    "sub_title": "ein kleiner Sub-Title",
+    "category": 1,
+    "min_group": 0
+}

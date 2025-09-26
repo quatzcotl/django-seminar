@@ -1,0 +1,2 @@
+### Liste alle User auf (dazu REST CLIENT API Extension installieren von donedb)
+GET http://127.0.0.1:8000/api/events
